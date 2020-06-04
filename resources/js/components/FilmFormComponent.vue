@@ -3,7 +3,7 @@
         <div class="columns is-multiline">
             <div class="card blog-card column is-half is-offset-one-quarter">
                 <header class="card-header">
-                    <h1 class="card-header-title is-centered" v-text="edit ? form.name : 'New Film'"/>
+                    <h1 class="card-header-title is-size-4 is-centered" v-text="edit ? form.name : 'New Film'"/>
                 </header>
                 <div class="card-content">
                     <div class="content">

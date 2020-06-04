@@ -2,7 +2,7 @@
     <div class="container">
         <div class="columns is-multiline">
             <div class="column is-three-fifths is-offset-one-fifth">
-                <div class="box custom-box" v-if="hasFilms">
+                <div v-if="hasFilms">
                     <film-list :all-films="films"></film-list>
                 </div>
             </div>

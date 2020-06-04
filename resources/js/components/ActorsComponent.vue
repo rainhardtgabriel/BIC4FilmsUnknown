@@ -1,9 +1,8 @@
 <template>
     <div class="container">
-        <hero main-title="Categories"></hero>
         <div class="columns is-multiline">
             <div class="column is-three-fifths is-offset-one-fifth">
-                <div class="box custom-box" v-if="hasActors">
+                <div v-if="hasActors">
                     <actor-list :all-actors="actors"></actor-list>
                 </div>
             </div>
