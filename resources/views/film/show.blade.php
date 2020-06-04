@@ -5,6 +5,6 @@
     <section class="section">
         <div class="container">
             <h1>Show film</h1>
-        </div>
+         </div>
     </section>
 @endsection
