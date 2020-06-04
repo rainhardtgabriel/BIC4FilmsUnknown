@@ -3,7 +3,7 @@
         <div class="columns is-multiline">
             <div class="card blog-card column is-half is-offset-one-quarter">
                 <header class="card-header">
-                    <h1 class="card-header-title is-size-4 is-centered" v-text="edit ? form.name : 'New Actor'"/>
+                    <h1 class="card-header-title is-size-4 is-centered" v-text="edit ? form.name : 'New Film'"/>
                 </header>
                 <div class="card-content">
                     <div class="content">
@@ -36,17 +36,17 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
     let form = new Form({
-        'film_id': '',
         'name': '',
         'description': ''
     });
 
     export default {
-        name: "ActorFormComponent",
+        name: "FilmFormComponent",
         components: {
             QueryMessage
         },
@@ -56,8 +56,8 @@
                 type: Boolean,
                 default: false
             },
-            currentActor: {
-                required: false,
+            currentFilm: {
+                required: true,
                 type: Object
             }
         },
@@ -77,13 +77,12 @@
                     this.form
                         .post(this.url)
                         .then(response => {
-                            this.url = '/actor/' + response.slug;
+                            this.url = '/film/' + response.slug;
 
-                            this.form.film_id = response.film_id;
                             this.form.name = response.name;
                             this.form.description = response.description;
 
-                            this.form.noReset = ['actor_id', 'name', 'description'];
+                            this.form.noReset = ['name', 'description'];
 
                             this.edit = true;
 
@@ -95,15 +94,15 @@
             this.edit = this.isEditable;
 
             if (this.edit) {
-                this.url = '/actor/' + this.currentActor.slug;
+                this.url = '/film/' + this.currentFilm.slug;
 
-                this.form.film_id = this.currentActor.film_id;
-                this.form.name = this.currentActor.name;
-                this.form.description = this.currentActor.description;
+                this.form.film_id = this.currentFilm.film_id;
+                this.form.name = this.currentFilm.name;
+                this.form.description = this.currentFilm.description;
 
-                this.form.noReset = ['film_id', 'name', 'description'];
+                this.form.noReset = ['name', 'description'];
             } else {
-                this.url = '/actor';
+                this.url = '/film';
             }
         }
     }

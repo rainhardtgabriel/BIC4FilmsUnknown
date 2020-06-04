@@ -2,8 +2,8 @@
     <div class="container">
         <div class="columns is-multiline">
             <div class="column is-three-fifths is-offset-one-fifth">
-                <div v-if="hasActors">
-                    <actor-list :all-actors="actors"></actor-list>
+                <div v-if="hasFilms">
+                    <film-list :all-films="films"></film-list>
                 </div>
             </div>
         </div>
@@ -11,40 +11,42 @@
 </template>
 
 <script>
-    import ActorList from "./ActorListComponent";
+    import FilmList from "./FilmListComponent";
 
     export default {
+        name: "FilmsComponent.vue",
+
         components:{
-            ActorList,
+            FilmList,
         },
 
-        name: "ActorsComponent",
         data() {
             return {
-                actors: [],
+                films: [],
             }
         },
 
         props: {
-            allActors: {
+            allFilms: {
                 type: Array,
                 required: true
             }
         },
 
         created() {
-            this.actors = this.allActors;
+            this.films = this.allFilms;
         },
 
         computed: {
-            hasActors() {
-                return !!this.actors.length;
+            hasFilms() {
+                return !!this.films.length;
             },
             showSuccessMessage() {
                 return this.successMessage !== '';
             }
         }
     }
+
 </script>
 
 <style scoped>
