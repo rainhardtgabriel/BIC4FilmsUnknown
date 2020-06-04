@@ -22,6 +22,9 @@ window.Vue = vue;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('query-message', require('./components/base/QueryMessage.vue').default);
+Vue.component('actor', require('./components/ActorComponent.vue').default);
+Vue.component('actors', require('./components/ActorsComponent.vue').default);
+Vue.component('actor-form', require('./components/ActorFormComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
