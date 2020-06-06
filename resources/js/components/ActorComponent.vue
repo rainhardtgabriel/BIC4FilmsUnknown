@@ -1,14 +1,16 @@
 <template>
     <div>
+        <query-message class="notification" :success="form.isSuccess()" :fail="form.isFail()"
+                        :message="form.failMessage || form.successMessage"></query-message>
         <header class="card-header mb-9">
             <h1 class="card-header-title is-size-4 is-centered is-paddingless">{{actor.name}}</h1>
         </header>
         <div class="card content">
-            <div class="content is-text-with-padding">{{actor.description}}<br>
+            <div class="content is-text-with-padding">{{actor.description}}
             </div>
             <footer class="card-footer">
-                <a v-bind:href="'/actor/'+ actor.slug +'/edit'" class="card-footer-item">Edit</a>
-                <a href="#" class="card-footer-item">Delete</a>
+                <a v-bind:href="'/actor/'+ actor.slug +'/edit'" class="button  is-success is-outlined card-footer-item fa fa-edit"></a>
+                <a class ="button is-outlined is-danger card-footer-item fa fa-trash-o" @click="deleteActor"></a>
             </footer>
         </div>
         <br/>
@@ -16,12 +18,19 @@
 </template>
 
 <script>
+    let form = new Form({
+        'slug': '',
+    });
+
     export default {
         name: "ActorComponent",
 
         data() {
             return {
                 actor: {},
+                deleteItem: false,
+                form: form,
+                url:''
             }
         },
 
@@ -33,11 +42,27 @@
         },
 
         created() {
-            this.actor = this.passedActor
+            this.actor = this.passedActor;
+            this.form.slug = this.actor.slug;
+            this.form.noReset = ['slug'];
+            this.url = '/actor/' + this.passedActor.slug;
         },
+
+        methods:{
+            deleteActor(){
+                this.form
+                    .delete(this.url);
+
+                this.form.noReset = ['slug'];
+            }
+        }
     }
 </script>
 
 <style scoped>
-
+    /*Remove rounded corners from button*/
+    .button {
+        -webkit-appearance: none;
+        -webkit-border-radius: 0px;
+    }
 </style>
