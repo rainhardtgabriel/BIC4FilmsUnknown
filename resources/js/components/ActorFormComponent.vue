@@ -26,7 +26,7 @@
                                 <p class="help is-danger" v-if="form.errors.has('description')"
                                    v-text="form.errors.get('description')"/>
                             </div>
-                            <div v-if="!isEditable">
+                            <div v-if="!isEditable" class="field">
                                 <label class="label" for="name">Movie*</label>
                                 <AutoCompleteComponent class="autoCompleteComponent" :items="movies"
                                                        @change="onDataChangedInChild"></AutoCompleteComponent>
