@@ -1,7 +1,7 @@
 <template>
     <div>
         <query-message class="notification" :success="form.isSuccess()" :fail="form.isFail()"
-                        :message="form.failMessage || form.successMessage"></query-message>
+                        :message="form.failMessage || form.successMessage" source="actor"></query-message>
         <header class="card-header mb-9">
             <h1 class="card-header-title is-size-4 is-centered is-paddingless">{{actor.name}}</h1>
         </header>

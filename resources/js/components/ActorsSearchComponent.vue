@@ -62,7 +62,6 @@ export default {
         .then(res => res.json())
         .then(res => {
           this.actors = res;
-          console.log(this.actors);
         });
     }
   },
