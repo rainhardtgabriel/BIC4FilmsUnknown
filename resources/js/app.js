@@ -3,9 +3,13 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
+
 require('./bootstrap');
 
+
 import vue from 'vue';
+
 
 window.Vue = vue;
 
@@ -29,6 +33,9 @@ Vue.component('film', require('./components/FilmComponent.vue').default);
 Vue.component('films', require('./components/FilmsComponent.vue').default);
 Vue.component('film-form', require('./components/FilmFormComponent.vue').default);
 Vue.component('actors-search', require('./components/ActorsSearchComponent.vue').default);
+
+
+vue.use(require('vue-moment'));
 
 
 /**

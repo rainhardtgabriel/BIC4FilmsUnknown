@@ -8,7 +8,7 @@
                 <div class="card-content">
                     <div class="content">
                         <query-message :success="form.isSuccess()" :fail="form.isFail()"
-                                       :message="form.failMessage || form.successMessage"></query-message>
+                                       :message="form.failMessage || form.successMessage" source="actor"></query-message>
                         <form @submit.prevent="submit">
                             <div class="field">
                                 <label class="label" for="name">Name*</label>
@@ -29,7 +29,7 @@
                             <div v-if="!isEditable" class="field">
                                 <label class="label" for="name">Movie*</label>
                                 <AutoCompleteComponent class="autoCompleteComponent" :items="movies"
-                                                       @change="onDataChangedInChild"></AutoCompleteComponent>
+                                                       v-on:change="onDataChangedInChild"></AutoCompleteComponent>
                                 <p class="help is-danger" v-if="form.errors.has('film_id')">
                                     The movie field is required
                                 </p>

@@ -23,13 +23,38 @@
             },
             message: {
                 required: true
+            },
+            source: {
+                type: String,
+                required: true
+            }
+        },
+
+        data() {
+            return {
+                timeToWait : '2500'
             }
         },
 
         methods: {
             show() {
+                if (this.success) {
+                    this.navigateToList()
+                }
                 return (this.success || this.fail);
+            },
+
+            navigateToList(){
+                if (this.source === 'actor'){
+                    setTimeout(function(){
+                        window.location.href = '/actor';
+                    }, this.timeToWait);
+                }else if(this.source === 'film'){
+                    setTimeout(function(){
+                        window.location.href = '/film';
+                    }, this.timeToWait);
+                }
             }
-        }
+        },
     }
 </script>
