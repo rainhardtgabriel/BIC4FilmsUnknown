@@ -9,19 +9,27 @@
           <div class="content">
             <input
               type="text"
-              class="input is-primary is-outlined is-fullwidth"
+              class="input field is-primary is-outlined is-fullwidth"
               v-model="search"
               placeholder="search actors"
             />
             <table>
               <thead>
                 <tr>
-                  <th v-for="col in keys" :key="col.id">{{col}}</th>
+                  <th v-for="col in columnKeys" :key="col.id">{{col}}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="row in filteredActors" :key="row.id">
-                  <td v-for="col in keys" :key="col.id">{{row[col]}}</td>
+                  <td v-for="col in columnKeys" :key="col.id">
+                    <template v-if="col==='name'">
+                      <a :href="'/actor/' + row.slug">
+                        <i></i>
+                        &nbsp;{{ row[col] }}
+                      </a>
+                    </template>
+                    <template v-else>{{ row[col] }}</template>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -34,15 +42,11 @@
 
 <script>
 export default {
-  components: {
-    QueryMessage
-  },
-
   name: "ActorsSearch",
   data() {
     return {
       actors: [],
-      keys: ["id", "name"],
+      columnKeys: ["name"],
       search: ""
     };
   },
@@ -99,7 +103,15 @@ table td:last-child {
   border-right: none;
 }
 
-table tbody tr:nth-child(2n) td {
+tr:nth-child(2n) td {
   background: #c2f5e8;
+}
+
+tr:hover td {
+  background-color: #d2d6d5;
+}
+
+tr:hover:nth-child(2n) td {
+  background: #d2d6d5;
 }
 </style>
