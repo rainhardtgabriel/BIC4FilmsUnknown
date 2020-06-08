@@ -60,11 +60,9 @@ class Form {
         return new Promise((resolve, reject) => {
             axios[requestType](url, this.data())
                 .then(response => {
-                    this.onSuccess(response.statusText);
-
+                    this.onSuccess(response.data);
 
                     resolve(response.data);
-                    console.log(JSON.parse(JSON.stringify(response)));
                 })
                 .catch(error => {
                     this.onFail(error.response.data);
@@ -77,11 +75,7 @@ class Form {
 
     onSuccess(data) {
         this.clearMessage();
-        if (data === 'Created') {
-            this.successMessage = 'Successfully created!';
-        } else {
-            this.successMessage = 'Successfully updated';
-        }
+        this.successMessage = data.message;
         this.reset();
         this.submitting = false;
     }

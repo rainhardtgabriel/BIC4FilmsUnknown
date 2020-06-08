@@ -1,7 +1,13 @@
 <template>
-    <div class="table-container is-fullwidth">
+    <li class="table-container is-fullwidth">
         <query-message class="notification" :success="form.isSuccess()" :fail="form.isFail()"
-                       :message="form.failMessage || form.successMessage" source="actor"></query-message>
+                       :message="form.failMessage || form.successMessage" source-url="actor"></query-message>
+        <nav class="is-fullwidth" role="navigation" aria-label="pagination">
+            <a v-if="currentPage >= 2" class="pagination-previous" @click="prevPage">Previous</a>
+            <a v-else class="pagination-previous" disabled>Previous</a>
+            <a v-if="currentPage < totalPages" class="pagination-next" @click="nextPage">Next page</a>
+            <a v-else class="pagination-next " disabled>Next page</a>
+        </nav>
         <table class="table is-fullwidth is-hoverable">
             <thead>
             <tr class="title is-6">
@@ -13,7 +19,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="actor in actors" :key="actor.id">
+            <tr v-for="actor in paginate" :key="actor.id">
                 <table-element-component  element-type="td">
                     <a :href="'/actor/' + actor.slug"
                        :title="actor.name">
@@ -21,7 +27,6 @@
                     </a>
                 </table-element-component>
                 <table-element-component v-if="hasMovies" element-type="td">{{ getMovieName(actor.film_id)}}</table-element-component>
-                <table-element-component element-type="td">{{ actor.created_at | moment("DD.MM.YYYY")}}</table-element-component>
                 <table-element-component element-type="td">{{ actor.created_at | moment("DD.MM.YYYY")}}</table-element-component>
                 <table-element-component element-type="td">{{ actor.updated_at | moment("DD.MM.YYYY")}}</table-element-component>
                 <table-element-component element-type="td" text-class="column has-text-right">
@@ -39,7 +44,7 @@
             </tr>
             </tbody>
         </table>
-    </div>
+    </li>
 </template>
 
 <script>
@@ -65,7 +70,10 @@
                 actor: {},
                 deleteItem: false,
                 form: form,
-                url:''
+                url:'',
+                currentPage: 1,
+                itemsPerPage: 10,
+                resultCount: 0
             }
         },
         props: {
@@ -82,12 +90,11 @@
                     .delete(this.url);
 
                 this.form.noReset = ['slug'];
-
+                window.scrollTo(0,0);
             },
             getMovieName(filmId){
-                return  this.movies.filter(function (elem) {
-                    if (elem.id === filmId) return (elem.name);
-                })
+                let movie = _.first(this.movies.filter(mov => mov.id == filmId));
+                return movie.name;
             },
 
             fetchMovies() {
@@ -96,6 +103,20 @@
                     .then(res => {
                         this.movies = res;
                     });
+            },
+
+            setPage: function(pageNumber) {
+                this.currentPage = pageNumber
+            },
+
+            nextPage(){
+                this.currentPage += 1;
+            },
+
+            prevPage(){
+                if(this.currentPage >= 2) {
+                    this.currentPage -= 1;
+                }
             }
 
         },
@@ -110,7 +131,20 @@
             hasMovies() {
                 return !!this.movies.length;
             },
-        }
+
+            totalPages: function() {
+                return Math.ceil(this.resultCount / this.itemsPerPage)
+            },
+
+            paginate: function() {
+                this.resultCount = this.actors.length
+                if (this.currentPage >= this.totalPages) {
+                    this.currentPage = this.totalPages
+                }
+                var index = this.currentPage * this.itemsPerPage - this.itemsPerPage
+                return this.actors.slice(index, index + this.itemsPerPage)
+            }
+        },
     }
 </script>
 

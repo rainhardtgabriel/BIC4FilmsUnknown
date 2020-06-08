@@ -47,11 +47,17 @@ class ActorController extends Controller
      */
     public function store(Request $request)
     {
-        return Actor::create($request->validate([
+
+        $actor = Actor::create($request->validate([
             'name' => 'required',
             'description' => 'required',
             'film_id' => 'required|exists:App\Film,id'
         ]));
+
+        $actor->{"message"} = "Actor successfully added!";
+
+        return response($actor, 200)
+            ->header('Content-Type', 'application/json');
     }
 
     /**
@@ -85,11 +91,15 @@ class ActorController extends Controller
      */
     public function update(Request $request,Actor $actor)
     {
-        return $actor->update($request->validate([
+        if ($actor->update($request->validate([
             'name' => 'required',
             'description' => 'required',
             'film_id' => 'required|exists:App\Film,id'
-        ]));
+        ])))
+            return response(['message' => "Actor successfully updated!"], 200)
+                ->header('Content-Type', 'application/json');
+        else
+            abort('500');
     }
 
     /**
@@ -100,7 +110,11 @@ class ActorController extends Controller
      */
     public function destroy(Actor $actor)
     {
-        return $actor->delete();
+        if($actor->delete())
+            return response(['message' => "Actor deleted!"], 200)
+                ->header('Content-Type', 'application/json');
+        else
+            abort(500);
     }
 
 

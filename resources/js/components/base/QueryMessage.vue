@@ -24,7 +24,7 @@
             message: {
                 required: true
             },
-            source: {
+            sourceUrl: {
                 type: String,
                 required: true
             }
@@ -45,15 +45,9 @@
             },
 
             navigateToList(){
-                if (this.source === 'actor'){
-                    setTimeout(function(){
-                        window.location.href = '/actor';
+                    setTimeout(() =>{
+                        window.location.href = '/' + this.sourceUrl;
                     }, this.timeToWait);
-                }else if(this.source === 'film'){
-                    setTimeout(function(){
-                        window.location.href = '/film';
-                    }, this.timeToWait);
-                }
             }
         },
     }
