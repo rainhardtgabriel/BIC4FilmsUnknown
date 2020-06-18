@@ -26,14 +26,12 @@
                                 <p class="help is-danger" v-if="form.errors.has('description')"
                                    v-text="form.errors.get('description')"/>
                             </div>
-                            <div v-if="!isEditable" class="field">
                                 <label class="label" for="name">Movie*</label>
                                 <AutoCompleteComponent class="autoCompleteComponent" :items="movies"
                                                        v-on:change="onDataChangedInChild"></AutoCompleteComponent>
                                 <p class="help is-danger" v-if="form.errors.has('film_id')">
                                     The movie field is required
                                 </p>
-                            </div>
                             <button type="submit" class="button is-large is-primary is-outlined is-fullwidth"
                                     v-text="edit ? 'Update' : 'Save'"/>
                         </form>
@@ -114,6 +112,7 @@
         },
         created() {
             this.edit = this.isEditable;
+            this.fetchMovies();
 
             if (this.edit) {
                 this.url = '/actor/' + this.currentActor.slug;
@@ -125,7 +124,6 @@
                 this.form.noReset = ['film_id', 'name', 'description'];
             } else {
                 this.url = '/actor';
-                this.fetchMovies();
             }
         }
     }

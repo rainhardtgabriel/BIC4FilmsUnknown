@@ -19,7 +19,6 @@
 
 <script>
     let form = new Form({
-        'slug': '',
     });
 
     export default {
@@ -43,8 +42,6 @@
 
         created() {
             this.actor = this.passedActor;
-            this.form.slug = this.actor.slug;
-            this.form.noReset = ['slug'];
             this.url = '/actor/' + this.passedActor.slug;
         },
 
@@ -52,8 +49,6 @@
             deleteActor(){
                 this.form
                     .delete(this.url);
-
-                this.form.noReset = ['slug'];
             }
         }
     }

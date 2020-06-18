@@ -48,27 +48,21 @@
 </template>
 
 <script>
+    import TableElementComponent from "./base/TableElementComponent";
 
     let form = new Form({
         'slug': '',
     });
 
-    import ActorComponent from "./ActorComponent";
-    import TableElementComponent from "./base/TableElementComponent";
-
     export default {
         components: {
-            ActorComponent,
             TableElementComponent
         },
         name: "ActorListComponent",
 
         data() {
             return {
-                actors: [],
                 movies: [],
-                actor: {},
-                deleteItem: false,
                 form: form,
                 url:'',
                 currentPage: 1,
@@ -85,16 +79,17 @@
         methods:{
             deleteActor(actor){
                 this.url = '/actor/' + actor;
-                this.form.slug = this.actor.slug;
+                this.form.slug = actor;
                 this.form
                     .delete(this.url);
 
                 this.form.noReset = ['slug'];
                 window.scrollTo(0,0);
             },
+
             getMovieName(filmId){
                 let movie = _.first(this.movies.filter(mov => mov.id == filmId));
-                return movie.name;
+                return (typeof movie !== "undefined") ? movie.name : '_' ;
             },
 
             fetchMovies() {
@@ -103,10 +98,6 @@
                     .then(res => {
                         this.movies = res;
                     });
-            },
-
-            setPage: function(pageNumber) {
-                this.currentPage = pageNumber
             },
 
             nextPage(){
@@ -122,7 +113,6 @@
         },
         created() {
             this.fetchMovies();
-            this.actors=this.allActors
             this.form.slug = '';
             this.form.noReset = ['slug'];
 
@@ -132,17 +122,17 @@
                 return !!this.movies.length;
             },
 
-            totalPages: function() {
+            totalPages() {
                 return Math.ceil(this.resultCount / this.itemsPerPage)
             },
 
-            paginate: function() {
-                this.resultCount = this.actors.length
+            paginate() {
+                this.resultCount = this.allActors.length
                 if (this.currentPage >= this.totalPages) {
                     this.currentPage = this.totalPages
                 }
                 var index = this.currentPage * this.itemsPerPage - this.itemsPerPage
-                return this.actors.slice(index, index + this.itemsPerPage)
+                return this.allActors.slice(index, index + this.itemsPerPage)
             }
         },
     }

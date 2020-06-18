@@ -3,7 +3,7 @@
 
 @section('content')
     <section class="section">
-        <actors :all-Actors="{{$actor}}" >
+        <actors :all-Actors="{{$actor}}">
         </actors>
     </section>
 @endsection

@@ -32,8 +32,13 @@
 
         data() {
             return {
-                timeToWait : '2500'
+                timeToWait : '2500',
+                indexUrl : ''
             }
+        },
+
+        created() {
+            this.indexUrl = '/' + this.sourceUrl;
         },
 
         methods: {
@@ -46,7 +51,7 @@
 
             navigateToList(){
                     setTimeout(() =>{
-                        window.location.href = '/' + this.sourceUrl;
+                        window.location.href = this.indexUrl;
                     }, this.timeToWait);
             }
         },

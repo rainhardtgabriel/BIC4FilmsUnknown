@@ -13,3 +13,7 @@ yarn-error.log
 .idea/
 
 .env.example
+
+public/css/app.css
+
+public/js/app.js
