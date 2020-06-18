@@ -47,10 +47,15 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        return Film::create($request->validate([
+        $film = Film::create($request->validate([
             'name' => 'required',
             'description' => 'required'
         ]));
+
+        $film->{"message"} = "Film successfully added!";
+
+        return response($film, 200)
+            ->header('Content-Type', 'application/json');
     }
 
     /**
@@ -84,10 +89,16 @@ class FilmController extends Controller
      */
     public function update(Request $request, Film $film)
     {
-        return $film->update($request->validate([
+        if ($film->update($request->validate([
             'name' => 'required',
-            'description' => 'required'
-        ]));
+            'description' => 'required',
+             ])))
+
+            return response(['message' => "Film successfully updated!"], 200)
+                ->header('Content-Type', 'application/json');
+        else
+            abort('500');
+
     }
 
     /**
@@ -98,7 +109,12 @@ class FilmController extends Controller
      */
     public function destroy(Film $film)
     {
-        return $film->delete();
+        if($film->delete())
+            return response(['message' => "Film deleted!"], 200)
+                ->header('Content-Type', 'application/json');
+        else
+            abort(500);
+
     }
 
 

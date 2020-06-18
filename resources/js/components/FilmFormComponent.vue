@@ -8,7 +8,7 @@
                 <div class="card-content">
                     <div class="content">
                         <query-message :success="form.isSuccess()" :fail="form.isFail()"
-                                       :message="form.failMessage || form.successMessage" source="film"></query-message>
+                                       :message="form.failMessage || form.successMessage" source-url="film"></query-message>
                         <form @submit.prevent="submit">
                             <div class="field">
                                 <label class="label" for="name">Name</label>
