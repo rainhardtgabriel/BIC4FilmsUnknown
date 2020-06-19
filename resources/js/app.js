@@ -32,6 +32,7 @@ Vue.component('film', require('./components/FilmComponent.vue').default);
 Vue.component('films', require('./components/FilmsComponent.vue').default);
 Vue.component('film-form', require('./components/FilmFormComponent.vue').default);
 Vue.component('actors-search', require('./components/ActorsSearchComponent.vue').default);
+Vue.component('films-search', require('./components/FilmsSearchComponent.vue').default);
 
 
 vue.use(require('vue-moment'));

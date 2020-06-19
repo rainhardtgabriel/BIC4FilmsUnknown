@@ -8,7 +8,9 @@
             </div>
             <footer class="card-footer">
                 <a v-bind:href="'/film/'+ film.slug +'/edit'" class="card-footer-item">Edit</a>
-                <a href="#" class="card-footer-item">Delete</a>
+                <a href="#" class="card-footer-item" @click="deleteFilm(film.slug)">Delete</a>
+
+
             </footer>
         </div>
         <br/>

@@ -25,5 +25,8 @@ Route::resource('film', 'FilmController');
 Route::get('/search/actor', 'ActorController@search')->name('actor.search');
 Route::post('/search/actor', 'ActorController@query')->name('actor.query');
 
+Route::get('/search/film', 'FilmController@search')->name('film.search');
+Route::post('/search/film', 'FilmController@query')->name('film.query');
+
 Route::get('/list/film', 'FilmController@list')->name('film.list');
 Route::get('/list/actor', 'ActorController@list')->name('actor.list');

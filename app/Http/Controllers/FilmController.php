@@ -117,6 +117,35 @@ class FilmController extends Controller
 
     }
 
+    /**
+     * Show form for searching.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search()
+    {
+        return view('film.search');
+    }
+
+
+    /**
+     * Return search result.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function query(Request $request)
+    {
+        $search = $request->validate([
+            'q' => 'required'
+        ])['q'];
+
+        return Film::query()
+            ->where('name', 'LIKE', "%{$search}%")
+            ->orWhere('description', 'LIKE', "%{$search}%")
+            ->get();
+    }
+
 
     /**
      * Display a listing of the resource.

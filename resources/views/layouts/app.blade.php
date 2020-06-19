@@ -86,7 +86,7 @@
                     </div>
 
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link {{ request()->routeIs('film.index') || request()->routeIs('film.create') ? 'is-active' : '' }}">
+                        <a class="navbar-link {{ request()->routeIs('film.index') || request()->routeIs('film.create') || request()->routeIs('film.search') ? 'is-active' : '' }}">
                             Films
                         </a>
 
@@ -98,6 +98,12 @@
                             <a class="navbar-item {{ request()->routeIs('film.create') ? 'is-active' : '' }}"
                                href="{{ route('film.create') }}">
                                 Create
+                            </a>
+
+                            <hr class="navbar-divider">
+                            <a class="navbar-item {{ request()->routeIs('film.search') ? 'is-active' : '' }}"
+                               href="{{ route('film.search') }}">
+                                Search
                             </a>
                         </div>
                     </div>
