@@ -2,9 +2,9 @@
 
 
 @section('content')
-    <section class="section">
-        <div class="container">
-            <h1>Show film</h1>
-         </div>
-    </section>
+<section class="section">
+    <div class="container">
+        <film :passed-film="{{$film}}"></film>
+    </div>
+</section>
 @endsection
