@@ -7,8 +7,8 @@
             <div class="content is-text-with-padding">{{film.description}}<br>
             </div>
             <footer class="card-footer">
-                <a v-bind:href="'/film/'+ film.slug +'/edit'" class="card-footer-item">Edit</a>
-                <a href="#" class="card-footer-item" @click="deleteFilm(film.slug)">Delete</a>
+                <a v-bind:href="'/film/'+ film.slug +'/edit'" class="button  is-success is-outlined card-footer-item fa fa-edit"></a>
+                <a href="#" class="button is-outlined is-danger card-footer-item fa fa-trash-o" @click="deleteFilm(film.slug)"></a>
 
 
             </footer>
@@ -34,9 +34,20 @@
         created() {
             this.film = this.passedFilm;
         },
+
+        methods:{
+            deleteFilm(){
+                this.form
+                    .delete(this.url);
+            }
+        }
     }
 </script>
 
 <style scoped>
-
+    /*Remove rounded corners from button*/
+    .button {
+        -webkit-appearance: none;
+        -webkit-border-radius: 0px;
+    }
 </style>

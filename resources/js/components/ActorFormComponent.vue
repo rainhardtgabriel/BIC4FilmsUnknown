@@ -26,12 +26,14 @@
                                 <p class="help is-danger" v-if="form.errors.has('description')"
                                    v-text="form.errors.get('description')"/>
                             </div>
+                            <div class="field">
                                 <label class="label" for="name">Movie*</label>
                                 <AutoCompleteComponent class="autoCompleteComponent" :items="movies"
                                                        v-on:change="onDataChangedInChild"></AutoCompleteComponent>
                                 <p class="help is-danger" v-if="form.errors.has('film_id')">
                                     The movie field is required
                                 </p>
+                            </div>
                             <button type="submit" class="button is-large is-primary is-outlined is-fullwidth"
                                     v-text="edit ? 'Update' : 'Save'"/>
                         </form>

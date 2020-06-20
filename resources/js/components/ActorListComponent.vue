@@ -2,7 +2,7 @@
     <li class="table-container is-fullwidth">
         <query-message class="notification" :success="form.isSuccess()" :fail="form.isFail()"
                        :message="form.failMessage || form.successMessage" source-url="actor"></query-message>
-        <nav class="is-fullwidth" role="navigation" aria-label="pagination">
+        <nav class=" is-fullwidth" role="navigation" aria-label="pagination">
             <a v-if="currentPage >= 2" class="pagination-previous" @click="prevPage">Previous</a>
             <a v-else class="pagination-previous" disabled>Previous</a>
             <a v-if="currentPage < totalPages" class="pagination-next" @click="nextPage">Next page</a>
