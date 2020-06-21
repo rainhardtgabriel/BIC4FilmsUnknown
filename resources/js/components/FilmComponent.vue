@@ -1,5 +1,7 @@
 <template>
     <div>
+        <query-message class="notification" :success="form.isSuccess()" :fail="form.isFail()"
+                       :message="form.failMessage || form.successMessage" source-url="film"></query-message>
         <header class="card-header mb-9">
             <h1 class="card-header-title is-size-4 is-centered is-paddingless">{{film.name}}</h1>
         </header>
@@ -8,9 +10,7 @@
             </div>
             <footer class="card-footer">
                 <a v-bind:href="'/film/'+ film.slug +'/edit'" class="button  is-success is-outlined card-footer-item fa fa-edit"></a>
-                <a href="#" class="button is-outlined is-danger card-footer-item fa fa-trash-o" @click="deleteFilm(film.slug)"></a>
-
-
+                <a class ="button is-outlined is-danger card-footer-item fa fa-trash-o" @click="deleteFilm"></a>
             </footer>
         </div>
         <br/>
@@ -18,8 +18,11 @@
 </template>
 
 <script>
+    let form = new Form({
+    });
+
     export default {
-        name: "FilmComponent.vue",
+        name: "FilmComponent",
         props: {
             passedFilm : {
                 type : Object,
@@ -29,10 +32,14 @@
         data(){
             return {
                 film : {},
+                deleteItem: false,
+                form: form,
+                url:''
             }
         },
         created() {
             this.film = this.passedFilm;
+            this.url = '/film/' + this.passedFilm.slug;
         },
 
         methods:{

@@ -12,7 +12,7 @@
             <thead>
             <tr class="title is-6">
                 <table-element-component element-type="th">Name</table-element-component>
-                <table-element-component element-type="th">Know from</table-element-component>
+                <table-element-component element-type="th">Known from</table-element-component>
                 <table-element-component element-type="th">Created</table-element-component>
                 <table-element-component element-type="th">Modified</table-element-component>
                 <table-element-component element-type="th" text-class="column has-text-right">Options</table-element-component>
