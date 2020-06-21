@@ -3,10 +3,14 @@
         <query-message class="notification" :success="form.isSuccess()" :fail="form.isFail()"
                        :message="form.failMessage || form.successMessage" source-url="actor"></query-message>
         <nav class=" is-fullwidth" role="navigation" aria-label="pagination">
-            <a v-if="currentPage >= 2" class="pagination-previous" @click="prevPage">Previous</a>
-            <a v-else class="pagination-previous" disabled>Previous</a>
-            <a v-if="currentPage < totalPages" class="pagination-next" @click="nextPage">Next page</a>
-            <a v-else class="pagination-next " disabled>Next page</a>
+            <div class="is-pulled-left">
+                <a v-if="currentPage >= 2" class="pagination-previous" @click="prevPage">Previous</a>
+                <a v-else class="pagination-previous" disabled>Previous</a>
+            </div>
+            <div class="is-pulled-right">
+                <a v-if="currentPage < totalPages" class="pagination-next" @click="nextPage">Next page</a>
+                <a v-else class="pagination-next " disabled>Next page</a>
+            </div>
         </nav>
         <table class="table is-fullwidth is-hoverable">
             <thead>
@@ -15,31 +19,35 @@
                 <table-element-component element-type="th">Known from</table-element-component>
                 <table-element-component element-type="th">Created</table-element-component>
                 <table-element-component element-type="th">Modified</table-element-component>
-                <table-element-component element-type="th" text-class="column has-text-right">Options</table-element-component>
+                <table-element-component element-type="th" text-class="column has-text-right">Options
+                </table-element-component>
             </tr>
             </thead>
             <tbody>
             <tr v-for="actor in paginate" :key="actor.id">
-                <table-element-component  element-type="td">
+                <table-element-component element-type="td">
                     <a :href="'/actor/' + actor.slug"
                        :title="actor.name">
                         {{ actor.name }}
                     </a>
                 </table-element-component>
-                <table-element-component v-if="hasMovies" element-type="td">{{ getMovieName(actor.film_id)}}</table-element-component>
-                <table-element-component element-type="td">{{ actor.created_at | moment("DD.MM.YYYY")}}</table-element-component>
-                <table-element-component element-type="td">{{ actor.updated_at | moment("DD.MM.YYYY")}}</table-element-component>
+                <table-element-component v-if="hasMovies" element-type="td">{{ getMovieName(actor.film_id)}}
+                </table-element-component>
+                <table-element-component element-type="td">{{ actor.created_at | moment("DD.MM.YYYY")}}
+                </table-element-component>
+                <table-element-component element-type="td">{{ actor.updated_at | moment("DD.MM.YYYY")}}
+                </table-element-component>
                 <table-element-component element-type="td" text-class="column has-text-right">
-                        <a v-bind:href="'/actor/'+ actor.slug +'/edit'" class="button is-success is-outlined is-small">
+                    <a v-bind:href="'/actor/'+ actor.slug +'/edit'" class="button is-success is-outlined is-small">
                             <span class="icon">
                               <i class="fa fa-edit"></i>
                             </span>
-                        </a>
-                        <button class="button is-danger is-outlined is-small" @click="deleteActor(actor.slug)" >
+                    </a>
+                    <button class="button is-danger is-outlined is-small" @click="deleteActor(actor.slug)">
                             <span class="icon">
                               <i class="fa fa-remove"></i>
                             </span>
-                        </button>
+                    </button>
                 </table-element-component>
             </tr>
             </tbody>
@@ -64,7 +72,7 @@
             return {
                 movies: [],
                 form: form,
-                url:'',
+                url: '',
                 currentPage: 1,
                 itemsPerPage: 10,
                 resultCount: 0
@@ -76,20 +84,20 @@
                 required: true
             }
         },
-        methods:{
-            deleteActor(actor){
+        methods: {
+            deleteActor(actor) {
                 this.url = '/actor/' + actor;
                 this.form.slug = actor;
                 this.form
                     .delete(this.url);
 
                 this.form.noReset = ['slug'];
-                window.scrollTo(0,0);
+                window.scrollTo(0, 0);
             },
 
-            getMovieName(filmId){
+            getMovieName(filmId) {
                 let movie = _.first(this.movies.filter(mov => mov.id == filmId));
-                return (typeof movie !== "undefined") ? movie.name : '_' ;
+                return (typeof movie !== "undefined") ? movie.name : '_';
             },
 
             fetchMovies() {
@@ -100,12 +108,12 @@
                     });
             },
 
-            nextPage(){
+            nextPage() {
                 this.currentPage += 1;
             },
 
-            prevPage(){
-                if(this.currentPage >= 2) {
+            prevPage() {
+                if (this.currentPage >= 2) {
                     this.currentPage -= 1;
                 }
             }
@@ -117,7 +125,7 @@
             this.form.noReset = ['slug'];
 
         },
-        computed:{
+        computed: {
             hasMovies() {
                 return !!this.movies.length;
             },

@@ -2,11 +2,15 @@
     <li class="table-container is-fullwidth">
         <query-message class="notification" :success="form.isSuccess()" :fail="form.isFail()"
                        :message="form.failMessage || form.successMessage" source-url="film"></query-message>
-        <nav class="is-fullwidth" role="navigation" aria-label="pagination">
-            <a v-if="currentPage >= 2" class="pagination-previous" @click="prevPage">Previous</a>
-            <a v-else class="pagination-previous" disabled>Previous</a>
-            <a v-if="currentPage < totalPages" class="pagination-next" @click="nextPage">Next page</a>
-            <a v-else class="pagination-next" disabled>Next page</a>
+        <nav class=" is-fullwidth" role="navigation" aria-label="pagination">
+            <div class="is-pulled-left">
+                <a v-if="currentPage >= 2" class="pagination-previous" @click="prevPage">Previous</a>
+                <a v-else class="pagination-previous" disabled>Previous</a>
+            </div>
+            <div class="is-pulled-right">
+                <a v-if="currentPage < totalPages" class="pagination-next" @click="nextPage">Next page</a>
+                <a v-else class="pagination-next " disabled>Next page</a>
+            </div>
         </nav>
         <table class="table is-fullwidth is-hoverable">
             <thead>
